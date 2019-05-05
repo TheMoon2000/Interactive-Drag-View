@@ -707,24 +707,54 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Drag_View" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="301"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="HXh-sd-ni4" customClass="InteractiveView" customModule="Drag_View" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="440" height="230"/>
+                                <rect key="frame" x="20" y="50" width="440" height="231"/>
                             </customView>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UQ9-rh-kSZ">
+                                <rect key="frame" x="187" y="13" width="96" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="96" id="Yr2-rj-xvj"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" alignment="right" title="50" placeholderString="Square size" drawsBackground="YES" id="bVI-10-rbL">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="userUpdatedTextfield:" target="XfG-lQ-9wD" id="RVS-hq-cTl"/>
+                                </connections>
+                            </textField>
+                            <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Gzr-sM-mTT">
+                                <rect key="frame" x="284" y="11" width="19" height="27"/>
+                                <stepperCell key="cell" continuous="YES" alignment="left" increment="10" minValue="50" maxValue="300" doubleValue="50" id="3Sv-C1-SMD"/>
+                                <connections>
+                                    <action selector="userUpdatedStepper:" target="XfG-lQ-9wD" id="Ubv-9d-vxx"/>
+                                </connections>
+                            </stepper>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="HXh-sd-ni4" secondAttribute="bottom" constant="20" id="1UX-br-N0V"/>
                             <constraint firstItem="HXh-sd-ni4" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="1pg-uU-k6L"/>
+                            <constraint firstItem="UQ9-rh-kSZ" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" constant="-5" id="BtW-Kf-ZrJ"/>
+                            <constraint firstAttribute="bottom" secondItem="Gzr-sM-mTT" secondAttribute="bottom" constant="13" id="ET0-3K-k4m"/>
+                            <constraint firstItem="UQ9-rh-kSZ" firstAttribute="top" secondItem="HXh-sd-ni4" secondAttribute="bottom" constant="15" id="e9K-Az-THm"/>
+                            <constraint firstItem="Gzr-sM-mTT" firstAttribute="leading" secondItem="UQ9-rh-kSZ" secondAttribute="trailing" constant="4" id="gXr-m5-JVG"/>
                             <constraint firstItem="HXh-sd-ni4" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="jyP-zj-Cxt"/>
                             <constraint firstAttribute="trailing" secondItem="HXh-sd-ni4" secondAttribute="trailing" constant="20" id="qIi-cy-zz2"/>
+                            <constraint firstAttribute="bottom" secondItem="UQ9-rh-kSZ" secondAttribute="bottom" constant="13" id="vTZ-qX-VVP"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="interactiveView" destination="HXh-sd-ni4" id="wFO-3K-0nl"/>
+                        <outlet property="stepper" destination="Gzr-sM-mTT" id="6UF-cB-Zj0"/>
+                        <outlet property="textField" destination="UQ9-rh-kSZ" id="qn3-5w-gIZ"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="670.5"/>
         </scene>
     </scenes>
 </document>

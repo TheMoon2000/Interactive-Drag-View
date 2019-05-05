@@ -9,17 +9,34 @@
 import Cocoa
 
 class ViewController: NSViewController {
+    
+    @IBOutlet weak var interactiveView: InteractiveView!
+    @IBOutlet weak var textField: NSTextField!
+    @IBOutlet weak var stepper: NSStepper!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
+    
+    @IBAction func userUpdatedTextfield(_ sender: NSTextField) {
+        // update the stepper
+        stepper.doubleValue = textField.doubleValue
+        textField.doubleValue = stepper.doubleValue
+        
+        // update the square from the interactive view
+        interactiveView.updateSquareSize(size: stepper.doubleValue)
+    }
+    
+    @IBAction func userUpdatedStepper(_ sender: NSStepper) {
+        textField.doubleValue = sender.doubleValue
+        // update the interactive view
+        interactiveView.updateSquareSize(size: sender.doubleValue)
+    }
+    
+    func respondToWindowResize() {
+        stepper.maxValue = interactiveView.maxSquareSize()
     }
 
 

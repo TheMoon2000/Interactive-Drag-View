@@ -11,6 +11,14 @@ import Cocoa
 class InteractiveView: NSView {
     
     override func awakeFromNib() {
+        updateTrackingArea()
+    }
+    
+    private func updateTrackingArea() {
+        for existingTrackingArea in self.trackingAreas {
+            self.removeTrackingArea(existingTrackingArea)
+        }
+        
         let trackingOptions: NSTrackingArea.Options = [
             .activeAlways,
             .mouseEnteredAndExited,
@@ -21,6 +29,22 @@ class InteractiveView: NSView {
                                           owner: self,
                                           userInfo: nil)
         self.addTrackingArea(trackingArea)
+    }
+    
+    func windowHasResized() {
+        updateTrackingArea()
+        mySquare.origin.x = min(mySquare.origin.x, frame.width - mySquare.width)
+        mySquare.origin.y = min(mySquare.origin.y, frame.height - mySquare.height)
+    }
+    
+    func updateSquareSize(size: Double) {
+        mySquare.size.width = CGFloat(size)
+        mySquare.size.height = CGFloat(size)
+        windowHasResized()
+    }
+    
+    func maxSquareSize() -> Double {
+        return Double(min(frame.width, frame.height))
     }
 
     override func draw(_ dirtyRect: NSRect) {
@@ -42,6 +66,16 @@ class InteractiveView: NSView {
         squarePath.fill()
     }
     
+    var mySquare = NSRect(x: 0, y: 0, width: 50, height: 50) {
+        didSet {
+            self.needsDisplay = true // call draw(...) on interactive view
+        }
+    }
+    
+    
+    
+    // Mouse tracking
+    
     var mouseIsIn = false {
         didSet {
             self.needsDisplay = true
@@ -56,23 +90,9 @@ class InteractiveView: NSView {
     }
     
     var pointOfMouseRelativeToSquare: NSPoint?
-    var mySquare = NSRect(x: 0, y: 0, width: 50, height: 50) {
-        didSet {
-            self.needsDisplay = true // call draw(...) on interactive view
-        }
-    }
-    
-    
-    
-    
-    // Mouse tracking
-    
-    override func mouseEntered(with event: NSEvent) {
-        
-    }
     
     override func mouseExited(with event: NSEvent) {
-        print("mouse exited the view")
+        mouseIsIn = false
     }
     
     override func mouseDragged(with event: NSEvent) {
